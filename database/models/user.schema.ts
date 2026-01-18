@@ -1,6 +1,18 @@
 import mongoose from "mongoose";
 
-const userSchema=new mongoose.Schema(
+enum Role{
+    Student="student",
+    Admin="admin"
+
+}
+
+interface IUser extends Document{
+    userName:string,
+    profileImage:string,
+    email:string,
+    role:Role,
+}
+const userSchema=new mongoose.Schema<IUser>(
 
      {
         userName:{
@@ -15,12 +27,15 @@ const userSchema=new mongoose.Schema(
 
         },
 
-        googleId:{
-            type:String
-        },
+       role:{
+        type:String,
+        enum:[Role.Student,Role.Admin],
+        default:Role.Student
+       },
 
         profileImage:{
             type:String,
+            
         }
 
      },
@@ -28,9 +43,9 @@ const userSchema=new mongoose.Schema(
     autoCreate:true,
     autoIndex:true,
      }
-)
+ )
 
 
-const User=mongoose.model("User",userSchema)
+const User=mongoose.models.User ||  mongoose.model("User",userSchema)
 export default User
 

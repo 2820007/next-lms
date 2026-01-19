@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-enum Role{
+export enum Role{
     Student="student",
     Admin="admin"
 
 }
 
-interface IUser extends Document{
+export interface IUser extends Document{
     userName:string,
     profileImage:string,
     email:string,

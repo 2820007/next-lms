@@ -1,9 +1,13 @@
 import dbConnect from "@/database/connection"
 import Category from "@/database/models/category.schema"
+import authMiddleware from "@/middleware/auth.middleware"
+import { NextRequest } from "next/server"
 
 export async function createCategory(req:Request){
 
    try {
+
+    const response=authMiddleware(req as NextRequest)
      await dbConnect()
 
    const {name,description} =await req.json()
